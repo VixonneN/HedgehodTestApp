@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.JokesFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/jokeRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_count"
+            android:layout_width="160dp"
+            android:layout_height="45dp"
+            android:foregroundGravity="bottom"
+            android:hint="@string/count_of_jokes"
+            android:inputType="number"
+            android:layout_gravity="bottom"
+            />
+
+        <Button
+            android:id="@+id/btn_jokes"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="@string/reload"
+            />
+
+    </LinearLayout>
+
+
+
+</FrameLayout>
