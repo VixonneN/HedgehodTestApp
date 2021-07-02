@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.system.Os.bind
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.hedgehodtestapp.fragments.BrowserFragment
+import com.example.hedgehodtestapp.fragments.JokesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

@@ -3,16 +3,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JokesFragment">
+    tools:context=".fragments.JokesFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/jokeRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content" />
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_count"
+            android:layout_width="160dp"
+            android:layout_height="45dp"
+            android:foregroundGravity="bottom"
+            android:hint="@string/count_of_jokes"
+            android:inputType="number"
+            android:layout_gravity="bottom"
+            />
+
+        <Button
+            android:id="@+id/btn_jokes"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="@string/reload"
+            />
+
+    </LinearLayout>
+
+
 
 </FrameLayout>
