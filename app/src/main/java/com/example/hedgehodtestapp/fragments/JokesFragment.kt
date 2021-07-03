@@ -17,10 +17,13 @@ import com.example.hedgehodtestapp.network.NetworkModule
 import com.example.hedgehodtestapp.network.Value
 import com.example.hedgehodtestapp.recycleView.JokesAdapter
 import com.example.hedgehodtestapp.recycleView.JokesModel
+import kotlinx.serialization.serializer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 import java.util.Collections.replaceAll
+import kotlin.collections.ArrayList
 
 class JokesFragment : Fragment() {
 
@@ -64,6 +67,7 @@ class JokesFragment : Fragment() {
                 Toast.makeText(context, body.toString(), Toast.LENGTH_SHORT).show()
                 Log.d(TAG, body.toString())
                 Log.d(TAG, "onResponse: here we go")
+                //body is null
 //                if (body != null){
 //
 //                        data = body.joke[0].toString()
@@ -94,6 +98,10 @@ class JokesFragment : Fragment() {
             val number: Int = Integer.parseInt(editText?.text.toString())
             searchJokes(number)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
     }
 
     companion object {
