@@ -17,7 +17,7 @@ class JokesAdapter internal constructor(private val dataClassJokes: ArrayList<Jo
 
     override fun onBindViewHolder(holder: JokesAdapter.JokesViewHolder, position: Int) {
         val model : JokesModel = dataClassJokes[position]
-        holder.joke.text = model.joke
+        holder.joke.text = model.jokes
     }
 
     override fun getItemCount(): Int {
