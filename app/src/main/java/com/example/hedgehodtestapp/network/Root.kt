@@ -1,5 +1,5 @@
 package com.example.hedgehodtestapp.network
 
-data class Type(
+data class Root(
     val type: String,
     val value: List<Value>)

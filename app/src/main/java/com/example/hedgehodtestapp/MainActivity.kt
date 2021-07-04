@@ -58,4 +58,9 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack("")
             .commit()
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        BrowserFragment.newInstance().goBackWebView()
+    }
 }

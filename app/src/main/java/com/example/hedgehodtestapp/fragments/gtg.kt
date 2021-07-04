@@ -1,28 +1,23 @@
-package com.example.hedgehodtestapp.fragments;
+package com.example.hedgehodtestapp.fragments
 
-import com.example.hedgehodtestapp.network.NetworkModule;
-import com.example.hedgehodtestapp.network.Value;
+import com.example.hedgehodtestapp.network.NetworkModule
+import com.example.hedgehodtestapp.network.Root
+import com.example.hedgehodtestapp.recycleView.JokesModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+class gtg {
+    private fun ggg() {
+        val networkModule = NetworkModule()
+        val number = 3
+        networkModule.api().getSomeJokes(number).enqueue(object : Callback<Root?> {
+            override fun onResponse(call: Call<Root?>, response: Response<Root?>) {
+                val body = response.body()
+                body!!.value[0].joke
+            }
 
-public class gtg {
-//    private void ggg(){
-//        NetworkModule networkModule = new NetworkModule();
-//        networkModule.api().getSomeJokes(3).enqueue(new Callback<Value>() {
-//            @Override
-//            public void onResponse(Call<Value> call, Response<Value> response) {
-//                Value body = response.body();
-//                if (body != null){
-//                    for (int i = 0; i > body.)
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Value> call, Throwable t) {
-//
-//            }
-//        });
-//    }
+            override fun onFailure(call: Call<Root?>, t: Throwable) {}
+        })
+    }
 }

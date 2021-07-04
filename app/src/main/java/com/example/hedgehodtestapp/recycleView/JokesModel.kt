@@ -1,6 +1,13 @@
 package com.example.hedgehodtestapp.recycleView
 
-import java.io.Serializable
-@kotlinx.serialization.Serializable
-data class JokesModel(val jokes : String?) {
+data class JokesModel(private var jokes : String?) {
+
+    fun getJokes() : String? {
+        return jokes
+    }
+
+    fun setJokes(value: String){
+        jokes = value
+    }
+
 }

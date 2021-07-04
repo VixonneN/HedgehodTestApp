@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import com.example.hedgehodtestapp.R
-import com.example.hedgehodtestapp.Util
 
 class BrowserFragment : Fragment() {
 
@@ -15,13 +14,19 @@ class BrowserFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        if (savedInstanceState != null)
+            webView?.restoreState(savedInstanceState.getBundle("webViewState")!!)
     }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_browser, container, false)
         webView = view.findViewById(R.id.webView)
         return view
+    }
+
+    fun goBackWebView(){
+        webView?.goBack()
     }
 
     //need save state
@@ -32,6 +37,9 @@ class BrowserFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        val webViewBundle = Bundle()
+        webView!!.saveState(webViewBundle)
+        outState.putBundle("webViewState", webViewBundle)
     }
 
     companion object {

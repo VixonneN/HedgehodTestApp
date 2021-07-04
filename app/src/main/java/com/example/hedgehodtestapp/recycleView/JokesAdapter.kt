@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hedgehodtestapp.R
 
-class JokesAdapter internal constructor(private val dataClassJokes: ArrayList<JokesModel>) :
+class JokesAdapter internal constructor(private var dataClassJokes: ArrayList<String>) :
     RecyclerView.Adapter<JokesAdapter.JokesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JokesAdapter.JokesViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -16,15 +16,15 @@ class JokesAdapter internal constructor(private val dataClassJokes: ArrayList<Jo
     }
 
     override fun onBindViewHolder(holder: JokesAdapter.JokesViewHolder, position: Int) {
-        val model : JokesModel = dataClassJokes[position]
-        holder.joke.text = model.jokes
+        val model : String = dataClassJokes[position]
+        holder.joke.text = model
     }
 
     override fun getItemCount(): Int {
         return dataClassJokes.size
     }
 
-    public fun replaceAll(newItems : List<JokesModel>){
+    fun replaceAll(newItems : List<String>){
         this.dataClassJokes.clear()
         this.dataClassJokes.addAll(newItems)
         notifyDataSetChanged()
