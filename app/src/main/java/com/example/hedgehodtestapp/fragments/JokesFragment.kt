@@ -21,7 +21,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.collections.ArrayList
 
-//TODO Update RecycleView
 class JokesFragment : Fragment() {
 
     private var jokesModelData: ArrayList<String> = ArrayList()
@@ -37,7 +36,6 @@ class JokesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addArray()
     }
 
     override fun onCreateView(
@@ -54,26 +52,14 @@ class JokesFragment : Fragment() {
         return view
     }
 
-    private fun updateRecycler(){
-        buttonUpdade?.setOnClickListener {
-            var i = 0
-            while (i < dataArrayList.size){
-                jokesModelData.add(dataArrayList[i])
-                i++
-            }
-            recyclerViewAdapter.replaceAll(jokesModelData)
-        }
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateRecycler()
 
         recyclerView?.layoutManager = LinearLayoutManager(context)
         recyclerView?.adapter = JokesAdapter(jokesModelData)
-        //TODO принимать в один лист, записывать в другой
         buttonGetRequest?.setOnClickListener {
+            jokesModelData.clear()
             val number: Int = Integer.parseInt(editText?.text.toString())
 
             val networkModule = NetworkModule()
@@ -84,10 +70,10 @@ class JokesFragment : Fragment() {
                     var i = 0
                     while (i < number) {
                         val data: String = body!!.value[i].joke
-                        dataArrayList.add(data)
+                        jokesModelData.add(data)
                         i++
                     }
-                    Log.d(TAG, "onResponse: $dataArrayList")
+                    recyclerView!!.adapter?.notifyDataSetChanged()
                 }
 
                 override fun onFailure(call: Call<Root>, t: Throwable) {
@@ -95,30 +81,7 @@ class JokesFragment : Fragment() {
                         .show()
                 }
             })
-//            recyclerViewAdapter.replaceAll(jokesModelData)
         }
-    }
-
-    private fun addArray(){
-        val networkModule = NetworkModule()
-        networkModule.api().getSomeJokes(4).enqueue(object : Callback<Root> {
-            override fun onResponse(call: Call<Root>, response: Response<Root>) {
-                val body: Root? = response.body()
-                Log.d(TAG, body.toString())
-                var i = 0
-                while (i < 4) {
-                    val data: String = body!!.value[i].joke
-                    jokesModelData.add(data)
-                    i++
-                }
-                Log.d(TAG, "onResponse: $jokesModelData")
-            }
-
-            override fun onFailure(call: Call<Root>, t: Throwable) {
-                Toast.makeText(context, "Jokes can't find Chuck Norris", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        })
     }
 
     companion object {

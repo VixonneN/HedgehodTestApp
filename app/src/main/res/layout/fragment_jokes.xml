@@ -10,14 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
-    <Button
-        android:id="@+id/btn_update"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_gravity="center"
-        android:text="@string/reload"
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,21 +20,18 @@
             android:id="@+id/et_count"
             android:layout_width="160dp"
             android:layout_height="45dp"
+            android:layout_gravity="bottom"
             android:foregroundGravity="bottom"
             android:hint="@string/count_of_jokes"
-            android:inputType="number"
-            android:layout_gravity="bottom"
-            />
+            android:inputType="number" />
 
         <Button
             android:id="@+id/btn_jokes"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:text="@string/reload"
-            />
+            android:text="@string/reload" />
 
     </LinearLayout>
-
 
 
 </FrameLayout>
