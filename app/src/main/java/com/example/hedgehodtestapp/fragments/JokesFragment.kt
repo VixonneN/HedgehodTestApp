@@ -16,7 +16,6 @@ import com.example.hedgehodtestapp.R
 import com.example.hedgehodtestapp.network.NetworkModule
 import com.example.hedgehodtestapp.network.Root
 import com.example.hedgehodtestapp.recycleView.JokesAdapter
-import com.example.hedgehodtestapp.recycleView.JokesModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,16 +25,19 @@ import kotlin.collections.ArrayList
 class JokesFragment : Fragment() {
 
     private var jokesModelData: ArrayList<String> = ArrayList()
-    private var recyclerView : RecyclerView? = null
+    private var dataArrayList: ArrayList<String> = ArrayList()
+    private var recyclerView: RecyclerView? = null
     private val recyclerViewAdapter: JokesAdapter by lazy {
         JokesAdapter(jokesModelData)
     }
 
     private var editText: EditText? = null
-    private var button: Button? = null
+    private var buttonGetRequest: Button? = null
+    private var buttonUpdade: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        addArray()
     }
 
     override fun onCreateView(
@@ -43,57 +45,80 @@ class JokesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_jokes, container, false)
         recyclerView = view.findViewById(R.id.jokeRecycler)
         editText = view.findViewById(R.id.et_count)
-        button = view.findViewById(R.id.btn_jokes)
+        buttonGetRequest = view.findViewById(R.id.btn_jokes)
+        buttonUpdade = view.findViewById(R.id.btn_update)
         return view
+    }
+
+    private fun updateRecycler(){
+        buttonUpdade?.setOnClickListener {
+            var i = 0
+            while (i < dataArrayList.size){
+                jokesModelData.add(dataArrayList[i])
+                i++
+            }
+            recyclerViewAdapter.replaceAll(jokesModelData)
+        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        updateRecycler()
 
-        recyclerView!!.layoutManager = LinearLayoutManager(context)
-        recyclerView!!.adapter = JokesAdapter(jokesModelData)
+        recyclerView?.layoutManager = LinearLayoutManager(context)
+        recyclerView?.adapter = JokesAdapter(jokesModelData)
+        //TODO принимать в один лист, записывать в другой
+        buttonGetRequest?.setOnClickListener {
+            val number: Int = Integer.parseInt(editText?.text.toString())
 
-        buttonClick()
+            val networkModule = NetworkModule()
+            networkModule.api().getSomeJokes(number).enqueue(object : Callback<Root> {
+                override fun onResponse(call: Call<Root>, response: Response<Root>) {
+                    val body: Root? = response.body()
+                    Log.d(TAG, body.toString())
+                    var i = 0
+                    while (i < number) {
+                        val data: String = body!!.value[i].joke
+                        dataArrayList.add(data)
+                        i++
+                    }
+                    Log.d(TAG, "onResponse: $dataArrayList")
+                }
+
+                override fun onFailure(call: Call<Root>, t: Throwable) {
+                    Toast.makeText(context, "Jokes can't find Chuck Norris", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            })
+//            recyclerViewAdapter.replaceAll(jokesModelData)
+        }
     }
 
-    private fun searchJokes(number: Int) {
+    private fun addArray(){
         val networkModule = NetworkModule()
-        networkModule.api().getSomeJokes(number).enqueue(object : Callback<Root> {
+        networkModule.api().getSomeJokes(4).enqueue(object : Callback<Root> {
             override fun onResponse(call: Call<Root>, response: Response<Root>) {
                 val body: Root? = response.body()
                 Log.d(TAG, body.toString())
-                var i : Int = 0
-                while (i < number) {
+                var i = 0
+                while (i < 4) {
                     val data: String = body!!.value[i].joke
                     jokesModelData.add(data)
                     i++
                 }
-                Toast.makeText(context, jokesModelData.toString(), Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "onResponse: $jokesModelData")
-                updateRecycler(jokesModelData)
             }
 
             override fun onFailure(call: Call<Root>, t: Throwable) {
-                Toast.makeText(context, "Jokes can't find Chuck Norris", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Jokes can't find Chuck Norris", Toast.LENGTH_SHORT)
+                    .show()
             }
         })
-    }
-
-    private fun buttonClick() {
-        button?.setOnClickListener {
-            val number: Int = Integer.parseInt(editText?.text.toString())
-            searchJokes(number)
-        }
-    }
-
-    private fun updateRecycler(newList : ArrayList<String>){
-        recyclerView!!.recycledViewPool.clear()
-        jokesModelData.clear()
-        jokesModelData.addAll(newList)
-        recyclerViewAdapter.notifyDataSetChanged()
     }
 
     companion object {
@@ -104,6 +129,4 @@ class JokesFragment : Fragment() {
                 }
             }
     }
-
 }
-

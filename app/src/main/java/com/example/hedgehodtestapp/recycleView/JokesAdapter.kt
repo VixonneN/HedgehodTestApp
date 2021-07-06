@@ -9,13 +9,13 @@ import com.example.hedgehodtestapp.R
 
 class JokesAdapter internal constructor(private var dataClassJokes: ArrayList<String>) :
     RecyclerView.Adapter<JokesAdapter.JokesViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JokesAdapter.JokesViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JokesViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_jokes, parent, false)
         return JokesViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: JokesAdapter.JokesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: JokesViewHolder, position: Int) {
         val model : String = dataClassJokes[position]
         holder.joke.text = model
     }
@@ -25,9 +25,12 @@ class JokesAdapter internal constructor(private var dataClassJokes: ArrayList<St
     }
 
     fun replaceAll(newItems : List<String>){
-        this.dataClassJokes.clear()
-        this.dataClassJokes.addAll(newItems)
-        notifyDataSetChanged()
+        val currentSize = dataClassJokes.size
+        dataClassJokes.clear()
+        dataClassJokes.addAll(newItems)
+        notifyItemRangeRemoved(0, currentSize)
+        notifyItemRangeInserted(0, newItems.size)
+//        notifyDataSetChanged()
     }
 
 
