@@ -29,7 +29,6 @@ class BrowserFragment : Fragment() {
         webView?.goBack()
     }
 
-    //need save state
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         webView?.loadUrl("https://www.icndb.com/api/")

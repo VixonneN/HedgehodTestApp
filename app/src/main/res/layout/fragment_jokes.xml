@@ -5,33 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.JokesFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/jokeRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="200dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/et_count"
-            android:layout_width="160dp"
-            android:layout_height="45dp"
-            android:layout_gravity="bottom"
-            android:foregroundGravity="bottom"
-            android:hint="@string/count_of_jokes"
-            android:inputType="number" />
-
-        <Button
-            android:id="@+id/btn_jokes"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:text="@string/reload" />
-
-    </LinearLayout>
-
+    <include layout="@layout/content_fragment_jokes"/>
 
 </FrameLayout>
