@@ -14,7 +14,10 @@ class BrowserFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState != null)
+            webView?.restoreState(savedInstanceState.getBundle("webViewState")!!)
     }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_browser, container, false)
@@ -22,10 +25,20 @@ class BrowserFragment : Fragment() {
         return view
     }
 
-    //need save state
+    fun goBackWebView(){
+        webView?.goBack()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         webView?.loadUrl("https://www.icndb.com/api/")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val webViewBundle = Bundle()
+        webView!!.saveState(webViewBundle)
+        outState.putBundle("webViewState", webViewBundle)
     }
 
     companion object {
