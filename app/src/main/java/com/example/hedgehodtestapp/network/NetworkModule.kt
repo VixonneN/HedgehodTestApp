@@ -6,10 +6,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class NetworkModule {
+
     private val api: Api
     fun api(): Api {
         return api
     }
+
     init {
         val builder = OkHttpClient.Builder()
         val loggingInterceptor =

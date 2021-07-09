@@ -1,10 +1,12 @@
 package com.example.hedgehodtestapp.fragments
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
 import android.webkit.WebView
 import com.example.hedgehodtestapp.R
 
@@ -18,7 +20,6 @@ class BrowserFragment : Fragment() {
             webView?.restoreState(savedInstanceState.getBundle("webViewState")!!)
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_browser, container, false)
         webView = view.findViewById(R.id.webView)
@@ -31,6 +32,9 @@ class BrowserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        webView?.settings?.setSupportZoom(true)
+        webView?.settings?.loadsImagesAutomatically
+        webView?.settings?.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
         webView?.loadUrl("https://www.icndb.com/api/")
     }
 

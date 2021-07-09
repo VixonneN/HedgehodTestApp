@@ -7,10 +7,10 @@
     <TextView
         android:id="@+id/text_jokes"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
-        android:maxLines="1"
+        android:layout_height="80dp"
+        android:maxLines="4"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:gravity="center_vertical"
         />
 

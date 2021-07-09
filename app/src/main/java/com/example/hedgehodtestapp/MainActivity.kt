@@ -14,7 +14,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        loadFragments(JokesFragment.newInstance())
+
+        supportFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .add(R.id.fragment_container, JokesFragment.newInstance(), null)
+            .commit()
+
         bottomNavigation()
     }
 
@@ -23,12 +28,10 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.navigationJoke -> {
-                    Toast.makeText(this, "joke", Toast.LENGTH_SHORT).show()
                     loadFragments(JokesFragment.newInstance())
                     true
                 }
                 R.id.navigationBrowser -> {
-                    Toast.makeText(this, "browser", Toast.LENGTH_SHORT).show()
                     loadFragments(BrowserFragment.newInstance())
                     true
                 }
@@ -39,12 +42,10 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemReselectedListener { item ->
             when(item.itemId) {
                 R.id.navigationJoke -> {
-                    Toast.makeText(this, "joke", Toast.LENGTH_SHORT).show()
                     loadFragments(JokesFragment.newInstance())
 
                 }
                 R.id.navigationBrowser -> {
-                    Toast.makeText(this, "browser", Toast.LENGTH_SHORT).show()
                     loadFragments(BrowserFragment.newInstance())
                 }
             }

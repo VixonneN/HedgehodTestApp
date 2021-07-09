@@ -1,8 +1,6 @@
 package com.example.hedgehodtestapp.fragments
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,16 +21,16 @@ import kotlin.collections.ArrayList
 
 class JokesFragment : Fragment() {
 
-    private var jokesModelData: ArrayList<String> = ArrayList()
+    private var jokesArrayList: ArrayList<String> = ArrayList()
     private var recyclerView: RecyclerView? = null
 
-    private var editText: EditText? = null
-    private var buttonGetRequest: Button? = null
+    private var editTextOfNumberJokes: EditText? = null
+    private var buttonSearchJokes: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
-            jokesModelData = savedInstanceState.getStringArrayList("jokesRecycleView")!!
+            jokesArrayList = savedInstanceState.getStringArrayList("jokesRecycleView")!!
         }
     }
 
@@ -44,8 +42,8 @@ class JokesFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_jokes, container, false)
         recyclerView = view.findViewById(R.id.jokeRecycler)
-        editText = view.findViewById(R.id.et_count)
-        buttonGetRequest = view.findViewById(R.id.btn_jokes)
+        editTextOfNumberJokes = view.findViewById(R.id.et_count)
+        buttonSearchJokes = view.findViewById(R.id.btn_jokes)
         return view
     }
 
@@ -54,17 +52,19 @@ class JokesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView?.layoutManager = LinearLayoutManager(context)
-        recyclerView?.adapter = JokesAdapter(jokesModelData)
-        buttonGetRequest?.setOnClickListener {
-            jokesModelData.clear()
+        recyclerView?.adapter = JokesAdapter(jokesArrayList)
 
-            val numberText: String = editText?.text.toString()
+        buttonSearchJokes?.setOnClickListener {
 
-            if (numberText.equals("") || numberText == null){
+            jokesArrayList.clear()
+
+            val numberText: String = editTextOfNumberJokes?.text.toString()
+
+            if (numberText == "" || numberText == null){
                 Toast.makeText(context, "write smth", Toast.LENGTH_SHORT).show()
             } else {
-                val number: Int = Integer.parseInt(numberText)
-                networkModule(number)
+                val numberFromEditText: Int = Integer.parseInt(numberText)
+                networkModule(numberFromEditText)
             }
         }
     }
@@ -74,13 +74,13 @@ class JokesFragment : Fragment() {
         networkModule.api().getSomeJokes(number).enqueue(object : Callback<Root> {
             override fun onResponse(call: Call<Root>, response: Response<Root>) {
                 val body: Root? = response.body()
-                Log.d(TAG, body.toString())
                 var i = 0
                 while (i < number) {
                     val data: String = body!!.value[i].joke
-                    jokesModelData.add(data)
+                    jokesArrayList.add(data)
                     i++
                 }
+
                 recyclerView!!.adapter?.notifyDataSetChanged()
             }
 
@@ -93,7 +93,7 @@ class JokesFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putStringArrayList("jokesRecycleView", jokesModelData)
+        outState.putStringArrayList("jokesRecycleView", jokesArrayList)
     }
 
     companion object {

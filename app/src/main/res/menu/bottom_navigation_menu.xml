@@ -3,10 +3,12 @@
     <item
         android:id="@+id/navigationJoke"
         android:title="@string/jokes"
+        android:icon="@drawable/icons8_jokes"
         />
 
     <item
         android:id="@+id/navigationBrowser"
         android:title="@string/browser"
+        android:icon="@drawable/icons8_browser"
         />
 </menu>
