@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlinx-serialization'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -9,6 +11,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
+        viewBinding.enabled = true
         applicationId "com.example.hedgehodtestapp"
         minSdkVersion 21
         targetSdkVersion 30

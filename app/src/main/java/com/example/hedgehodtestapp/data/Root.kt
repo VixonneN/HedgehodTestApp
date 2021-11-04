@@ -1,4 +1,4 @@
-package com.example.hedgehodtestapp.network
+package com.example.hedgehodtestapp.data
 
 data class Root(
     val type: String,

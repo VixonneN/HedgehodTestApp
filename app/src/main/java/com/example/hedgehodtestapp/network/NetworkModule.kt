@@ -12,6 +12,10 @@ class NetworkModule {
         return api
     }
 
+    private companion object{
+        const val BASE_URL = "http://api.icndb.com/jokes/"
+    }
+
     init {
         val builder = OkHttpClient.Builder()
         val loggingInterceptor =
@@ -19,7 +23,7 @@ class NetworkModule {
         builder.addInterceptor(loggingInterceptor)
         val retrofit: Retrofit = Retrofit.Builder()
             .client(builder.build())
-            .baseUrl("http://api.icndb.com/jokes/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         api = retrofit.create(Api::class.java)

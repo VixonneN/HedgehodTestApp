@@ -1,6 +1,5 @@
-package com.example.hedgehodtestapp.fragments
+package com.example.hedgehodtestapp.fragments.browser
 
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
