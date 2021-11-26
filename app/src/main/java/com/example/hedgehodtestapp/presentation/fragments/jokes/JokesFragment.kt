@@ -1,4 +1,4 @@
-package com.example.hedgehodtestapp.fragments.jokes
+package com.example.hedgehodtestapp.presentation.fragments.jokes
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
@@ -11,15 +11,16 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hedgehodtestapp.data.Root
+import com.example.hedgehodtestapp.data.data_source.Root
 import com.example.hedgehodtestapp.databinding.FragmentJokesBinding
-import com.example.hedgehodtestapp.fragments.jokes.jokes_recycle_view.JokesAdapter
+import com.example.hedgehodtestapp.presentation.fragments.jokes.jokes_recycle_view.JokesAdapter
 import kotlinx.android.synthetic.main.content_fragment_jokes.view.*
-import kotlin.collections.ArrayList
 
 class JokesFragment : Fragment() {
 
-    private lateinit var mViewModel: JokesFragmentViewModel
+    private val mViewModel: JokesFragmentViewModel by lazy {
+        ViewModelProvider(this)[JokesFragmentViewModel::class.java]
+    }
 
     private var _binding: FragmentJokesBinding? = null
     private val mBinding get() = _binding!!
@@ -53,6 +54,7 @@ class JokesFragment : Fragment() {
         }
         mRecyclerView.adapter = mAdapter
 
+        //TODO логику убрать во view model
         mBinding.root.btn_jokes.setOnClickListener {
             val number = mBinding.root.et_count.text.toString()
             if (number.isEmpty()){
@@ -63,7 +65,6 @@ class JokesFragment : Fragment() {
 
             }
         }
-        mViewModel = ViewModelProvider(this).get(JokesFragmentViewModel::class.java)
     }
 
     override fun onDestroy() {

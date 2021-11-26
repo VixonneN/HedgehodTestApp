@@ -1,8 +1,8 @@
-package com.example.hedgehodtestapp.fragments.jokes.jokes_recycle_view
+package com.example.hedgehodtestapp.presentation.fragments.jokes.jokes_recycle_view
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hedgehodtestapp.data.Value
+import com.example.hedgehodtestapp.data.data_source.Value
 
 class JokesAdapter: RecyclerView.Adapter<JokesViewHolder>() {
 

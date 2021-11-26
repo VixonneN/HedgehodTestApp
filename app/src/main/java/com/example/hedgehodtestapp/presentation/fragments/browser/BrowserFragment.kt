@@ -1,4 +1,4 @@
-package com.example.hedgehodtestapp.fragments.browser
+package com.example.hedgehodtestapp.presentation.fragments.browser
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -45,11 +45,6 @@ class BrowserFragment : Fragment() {
     }
 
     companion object {
-        @JvmStatic
-        fun newInstance() =
-            BrowserFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
+        fun newInstance() = BrowserFragment()
     }
 }

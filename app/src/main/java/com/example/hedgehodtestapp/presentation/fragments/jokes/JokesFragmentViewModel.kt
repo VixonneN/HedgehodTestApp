@@ -1,10 +1,10 @@
-package com.example.hedgehodtestapp.fragments.jokes
+package com.example.hedgehodtestapp.presentation.fragments.jokes
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.hedgehodtestapp.data.Root
-import com.example.hedgehodtestapp.network.NetworkModule
+import com.example.hedgehodtestapp.data.data_source.Root
+import com.example.hedgehodtestapp.data.network.NetworkModule
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,4 +1,4 @@
-package com.example.hedgehodtestapp.fragments.browser
+package com.example.hedgehodtestapp.presentation.fragments.browser
 
 import androidx.lifecycle.ViewModel
 

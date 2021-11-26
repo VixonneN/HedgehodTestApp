@@ -1,11 +1,12 @@
-package com.example.hedgehodtestapp
+package com.example.hedgehodtestapp.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.hedgehodtestapp.R
 import com.example.hedgehodtestapp.databinding.ActivityMainBinding
-import com.example.hedgehodtestapp.fragments.browser.BrowserFragment
-import com.example.hedgehodtestapp.fragments.jokes.JokesFragment
+import com.example.hedgehodtestapp.presentation.fragments.browser.BrowserFragment
+import com.example.hedgehodtestapp.presentation.fragments.jokes.JokesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
