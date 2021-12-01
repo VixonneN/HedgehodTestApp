@@ -12,7 +12,6 @@ class NetworkModule {
         return api
     }
 
-    //ссылки на урл тут не должно быть
     private companion object{
         const val BASE_URL = "http://api.icndb.com/jokes/"
     }

@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
             .commit()
 
         bottomNavigation()
-
     }
 
     private fun bottomNavigation () {

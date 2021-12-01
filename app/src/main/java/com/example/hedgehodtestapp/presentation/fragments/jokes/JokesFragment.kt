@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.content_fragment_jokes.view.*
 class JokesFragment : Fragment() {
 
     private val mViewModel: JokesFragmentViewModel by lazy {
-        ViewModelProvider(this)[JokesFragmentViewModel::class.java]
+        ViewModelProvider(this, JokesFragmentViewModelFactory())[JokesFragmentViewModel::class.java]
     }
 
     private var _binding: FragmentJokesBinding? = null
@@ -54,13 +54,12 @@ class JokesFragment : Fragment() {
         }
         mRecyclerView.adapter = mAdapter
 
-        //TODO логику убрать во view model
         mBinding.root.btn_jokes.setOnClickListener {
             val number = mBinding.root.et_count.text.toString()
             if (number.isEmpty()){
                 Toast.makeText(context, "Write numbers of jokes", Toast.LENGTH_SHORT).show()
             } else {
-                mViewModel.networkModule(number.toInt())
+                mViewModel.jokesRequest(number.toInt())
                 mViewModel.jokes.observe(this, mObserverList)
 
             }
