@@ -8,5 +8,5 @@ import retrofit2.http.Path
 interface Api {
 
     @GET("random/{number}")
-    fun getSomeJokes(@Path("number") number: Int) : Call<Root>
+    suspend fun getSomeJokes(@Path("number") number: Int) : Root
 }

@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
             when(item.itemId) {
                 R.id.navigationJoke -> {
                     loadFragments(JokesFragment.newInstance())
-
                 }
                 R.id.navigationBrowser -> {
                     loadFragments(BrowserFragment.newInstance())

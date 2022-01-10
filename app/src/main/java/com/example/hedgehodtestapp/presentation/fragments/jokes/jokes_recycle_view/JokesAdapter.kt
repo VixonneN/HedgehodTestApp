@@ -2,11 +2,11 @@ package com.example.hedgehodtestapp.presentation.fragments.jokes.jokes_recycle_v
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hedgehodtestapp.data.data_source.Value
+import com.example.hedgehodtestapp.domain.entity.ValueEntity
 
 class JokesAdapter: RecyclerView.Adapter<JokesViewHolder>() {
 
-    var jokesList: List<Value> = emptyList()
+    var jokesList: List<ValueEntity> = emptyList()
     set(value) {
         field = value
         notifyDataSetChanged()

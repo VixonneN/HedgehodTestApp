@@ -5,16 +5,10 @@ import com.example.hedgehodtestapp.data.data_source.Value
 import com.example.hedgehodtestapp.domain.entity.RootEntity
 import com.example.hedgehodtestapp.domain.entity.ValueEntity
 
-fun Root.toRootEntity(root: Root): RootEntity {
-    return RootEntity(
-        type = root.type,
-        value = root.value
-    )
-}
+fun Root.toRootEntity(): RootEntity =
+    RootEntity(type, value.map {
+        it.toValueEntity()
+    })
 
-fun Value.toValueEntity(value: Value): ValueEntity =
-    ValueEntity(
-        id = value.id,
-        joke = value.joke,
-        categories = value.categories
-    )
+fun Value.toValueEntity(): ValueEntity =
+    ValueEntity(id, joke, categories)

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hedgehodtestapp.data.data_source.Root
 import com.example.hedgehodtestapp.data.network.NetworkModule
+import com.example.hedgehodtestapp.domain.entity.RootEntity
 import com.example.hedgehodtestapp.domain.use_cases.GetJokesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,22 +20,27 @@ import java.io.IOException
 
 class JokesFragmentViewModel(
     private val getJokesUseCase: GetJokesUseCase
-    ) : ViewModel() {
+) : ViewModel() {
 
-    private val _jokes = MutableLiveData<Root>()
-    val jokes : LiveData<Root> = _jokes
+    private val _jokes = MutableLiveData<RootEntity>()
+    val jokes: LiveData<RootEntity> = _jokes
 
-    fun jokesRequest(number: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val response = getJokesUseCase.invoke().getSomeJokes(number).execute()
-                viewModelScope.launch(Dispatchers.Main) {
-                    _jokes.value = response.body()
+    private val _exception = MutableLiveData<String>()
+    val exception: LiveData<String> = _exception
+
+    fun jokesRequest(number: String) {
+        if (number == "" || number.isEmpty()){
+            _exception.value = "Введите верное значение"
+        } else {
+            viewModelScope.launch {
+                try {
+                    val response = getJokesUseCase.invoke(number.toInt())
+                    _jokes.value = response
+                } catch (e: IOException) {
+                    Log.d(TAG, "jokesRequest: $e")
+                } catch (e: HttpException) {
+                    Log.d(TAG, "jokesRequest: $e")
                 }
-            } catch (e: IOException) {
-                Log.d(TAG, "jokesRequest: $e")
-            } catch (e: HttpException) {
-                Log.d(TAG, "jokesRequest: $e")
             }
         }
     }
