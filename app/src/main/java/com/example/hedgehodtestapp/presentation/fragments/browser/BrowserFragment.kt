@@ -42,6 +42,7 @@ class BrowserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        webView = mBinding.webView
         webViewSettings()
     }
 
@@ -65,7 +66,7 @@ class BrowserFragment : Fragment() {
     }
 
     companion object {
-        private const val WEB_VIEW_URL = "https://www.icndb.com/api/"
+        private const val WEB_VIEW_URL = "http://www.icndb.com/api/"
         fun newInstance() = BrowserFragment()
     }
 }
